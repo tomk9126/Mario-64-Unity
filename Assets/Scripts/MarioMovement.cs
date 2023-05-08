@@ -42,13 +42,43 @@ public class MarioMovement : MonoBehaviour
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, ground);
         //rotate player orientation
         
-        Vector3 viewDir = player.position - new Vector3(transform.position.x, player.position.y, transform.position.z);
-        orientation.forward = viewDir.normalized;
+        Vector3 viewDir = player.position - transform.position;
+        if (viewDir.sqrMagnitude > 0.001f)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(viewDir, Vector3.up);
+            orientation.rotation = Quaternion.Slerp(orientation.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        }
 
         //rotate the player object
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
         Vector3 inputDir = orientation.forward * verticalInput + orientation.right * horizontalInput;
+
+        
+
+        //calculate movement direction
+        moveDirection = inputDir.normalized;
+
+        if (grounded)
+        {
+            rb.AddForce(moveDirection * moveSpeed, ForceMode.Acceleration);
+        }
+        else if (!grounded)
+        {
+            rb.AddForce(moveDirection * moveSpeed * airMultiplier, ForceMode.Acceleration);
+        }
+        
+        if (inputDir != Vector3.zero)
+        {
+            playerObject.forward = Vector3.Slerp(playerObject.forward, inputDir.normalized, Time.deltaTime * rotationSpeed);
+        }
+        //ground drag
+        if (grounded)
+        {
+            rb.drag = groundDrag;
+        } else {
+            rb.drag = 0;
+        }
 
         //when to jump
         if(Input.GetButton("Jump") && readyToJump && grounded)
@@ -59,28 +89,7 @@ public class MarioMovement : MonoBehaviour
 
             Invoke(nameof(ResetJump), jumpCooldown);
         }
-        if (inputDir != Vector3.zero)
-        {
-            playerObject.forward = Vector3.Slerp(playerObject.forward, inputDir.normalized, Time.deltaTime * rotationSpeed);
-        }
-
-        //calculate movement direction
-        moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
-        if(grounded) {
-            rb.AddForce(moveDirection.normalized * 10f, ForceMode.Force);
-        }
-        else if(!grounded) {
-            rb.AddForce(moveDirection.normalized * 10f * airMultiplier, ForceMode.Force);
-        }
         
-
-        //ground drag
-        if (grounded)
-        {
-            rb.drag = groundDrag;
-        } else {
-            rb.drag = 0;
-        }
     }
 
     private void SpeedControl()
