@@ -354,8 +354,9 @@
 "Assets/Ciconia Studio/_Shared Files/Scripts/Demo/FreeCamera.cs"
 "Assets/Ciconia Studio/_Shared Files/Scripts/Demo/SuperCamera.cs"
 "Assets/Ciconia Studio/_Shared Files/Scripts/Demo/UIButton_ShowNext.cs"
-"Assets/Interactions.cs"
+"Assets/Scripts/Coins.cs"
 "Assets/Scripts/FreezeRot.cs"
+"Assets/Scripts/Interactions.cs"
 "Assets/Scripts/MarioMovement.cs"
 -langversion:9.0
 
