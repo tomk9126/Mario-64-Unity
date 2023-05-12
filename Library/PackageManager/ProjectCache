@@ -113,6 +113,8 @@ m_ResolvedPackages:
     - 3.0.0-pre.3
     - 3.0.0-pre.4
     - 3.0.0-pre.5
+    - 3.0.0-pre.6
+    - 3.0.0-pre.7
     compatible:
     - 2.8.4
     - 2.8.6
