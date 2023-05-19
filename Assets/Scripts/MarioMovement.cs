@@ -23,6 +23,10 @@ public class MarioMovement : MonoBehaviour
     public float jumpCooldown;
     public float airMultiplier;
     public bool readyToJump;
+    public bool readyToLongJump;
+    public bool longJumping;
+    public float longJumpForceMultiplier;
+    public float longJumpSpeedMultiplier;
 
     Vector3 moveDirection;
 
@@ -35,13 +39,14 @@ public class MarioMovement : MonoBehaviour
     {
         rb.freezeRotation = true;
     }
+    
     private void Update()
     {   
         SpeedControl();
-        //gruond check
+        //ground check
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, ground);
-        //rotate player orientation
         
+        //rotate player's orientation
         Vector3 viewDir = player.position - transform.position;
         if (viewDir.sqrMagnitude > 0.001f)
         {
@@ -54,6 +59,29 @@ public class MarioMovement : MonoBehaviour
         float verticalInput = Input.GetAxis("Vertical");
         Vector3 inputDir = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
+
+        //when to long jump
+        if (Input.GetButton("Jump") && Input.GetButton("Fire3") && readyToLongJump && grounded)
+        {   
+            Debug.Log("Long Jump");
+            longJumping = true;
+            readyToJump = false;
+            readyToLongJump = false;
+            Jump(longJumpForceMultiplier);
+            Invoke(nameof(ResetJump), jumpCooldown);
+            rb.AddForce(moveDirection * moveSpeed * longJumpSpeedMultiplier, ForceMode.Acceleration);
+        }
+
+        //when to jump
+        else if (Input.GetButton("Jump") && readyToJump && grounded)
+        {
+            Debug.Log("Jump");
+            readyToJump = false;
+            readyToLongJump = false;
+            Jump(1f);
+            Invoke(nameof(ResetJump), jumpCooldown);
+            
+        }
         
 
         //calculate movement direction
@@ -65,55 +93,60 @@ public class MarioMovement : MonoBehaviour
         }
         else if (!grounded)
         {
-            rb.AddForce(moveDirection * moveSpeed * airMultiplier, ForceMode.Acceleration);
+            rb.AddForce(moveDirection * moveSpeed * airMultiplier * Time.fixedDeltaTime, ForceMode.VelocityChange);
         }
-        
+
         if (inputDir != Vector3.zero)
         {
             playerObject.forward = Vector3.Slerp(playerObject.forward, inputDir.normalized, Time.deltaTime * rotationSpeed);
         }
-        //ground drag
+
+        //ground check
         if (grounded)
         {
             rb.drag = groundDrag;
-        } else {
+        }
+        else
+        {
             rb.drag = 0;
         }
-
-        //when to jump
-        if(Input.GetButton("Jump") && readyToJump && grounded)
-        {
-            readyToJump = false;
-
-            Jump();
-
-            Invoke(nameof(ResetJump), jumpCooldown);
-        }
-        
     }
 
     private void SpeedControl()
     {
-        Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-        
-        //limit Mario's speed
-        if (flatVel.magnitude > moveSpeed)
+        float maxSpeed = moveSpeed;
+
+        if (!grounded && longJumping)
         {
-            Vector3 limitedVel = flatVel.normalized * moveSpeed;
+            maxSpeed *= longJumpSpeedMultiplier;
+        }
+
+        Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+
+        //limit player speed
+        if (flatVel.magnitude > maxSpeed)
+        {
+            Vector3 limitedVel = flatVel.normalized * maxSpeed;
             rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
         }
+
     }
 
-    private void Jump()
+    private void Jump(float jumpMultiplier)
     {
         //reset y velocity
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-        Debug.Log("Jump");
-        rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+        
+        rb.AddForce(transform.up * jumpForce * jumpMultiplier, ForceMode.Impulse);
     }
 
-    private void ResetJump() {
+    private void ResetJump() 
+    {
         readyToJump = true;
+        readyToLongJump = true;
+        longJumping = false;
+           
     }
 
 }
+
