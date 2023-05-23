@@ -12,13 +12,18 @@ public class MarioMovement : MonoBehaviour
 
     public float rotationSpeed;
 
-    [Header("Movement")]
-    public float moveSpeed;
-
+    
+    
+    [Header("Physics")]
     public float groundDrag;
+
+    [Header("Input")]
     float horizontalInput;
     float verticalInput;
+    public float moveMagnitude;
 
+    [Header("Movement")]
+    public float moveSpeed;
     public float jumpForce;
     public float jumpCooldown;
     public float airMultiplier;
@@ -27,6 +32,10 @@ public class MarioMovement : MonoBehaviour
     public bool longJumping;
     public float longJumpForceMultiplier;
     public float longJumpSpeedMultiplier;
+
+    [Header("Score")]
+    public int coins;
+    public int redCoins;
 
     Vector3 moveDirection;
 
@@ -86,14 +95,15 @@ public class MarioMovement : MonoBehaviour
 
         //calculate movement direction
         moveDirection = inputDir.normalized;
+        moveMagnitude = Mathf.Clamp01(new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")).magnitude); //checks for how far the analog stick is being pushed. If playing on a keyboard, magnitude is either a one or a zero anyway, so this does not affect that.
 
         if (grounded)
         {
-            rb.AddForce(moveDirection * moveSpeed, ForceMode.Acceleration);
+            rb.AddForce(moveDirection * moveMagnitude * moveSpeed, ForceMode.Acceleration);
         }
         else if (!grounded)
         {
-            rb.AddForce(moveDirection * moveSpeed * airMultiplier * Time.fixedDeltaTime, ForceMode.VelocityChange);
+            rb.AddForce(moveDirection * moveMagnitude * moveSpeed * airMultiplier * Time.fixedDeltaTime, ForceMode.VelocityChange);
         }
 
         if (inputDir != Vector3.zero)

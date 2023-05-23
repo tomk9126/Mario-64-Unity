@@ -5,14 +5,34 @@ using UnityEngine;
 
 public class Coins : MonoBehaviour
 {
+    public bool isRed;
+    public AudioSource coinSound;
+    bool collected = false;
+
+    MarioMovement marioMovement;
+    [SerializeField] GameObject player;
     
+    void Start() {
+        marioMovement = player.GetComponent<MarioMovement>();
+        coinSound = GetComponent<AudioSource>();
+    }
+
     void OnTriggerEnter(Collider other)
     {
         
         if (other.tag == "Player") //used for crash prevention
         {
-            Debug.Log("Coin");
-            Destroy(this.gameObject);
+            if (!collected) //this prevents coins from being collected more than once before they're destroyed.
+            {   
+                collected = true;
+                Debug.Log("Coin");
+                marioMovement.coins = marioMovement.coins + 1;
+                if (isRed)  { marioMovement.coins = marioMovement.coins + 1; } //extra coin counted if red
+                coinSound.Play();
+                Destroy(this.gameObject);
+                
+            }
+            
             
             
         }
