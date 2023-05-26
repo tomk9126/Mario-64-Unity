@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
-  m_Sun: {fileID: 705507994}
+  m_Sun: {fileID: 0}
   m_IndirectSpecularColor: {r: 0.43933868, g: 0.48765695, b: 0.5678994, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
@@ -274,7 +274,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isRed: 1
-  coinSound: {fileID: 0}
   player: {fileID: 1828384991}
 --- !u!23 &174571675
 MeshRenderer:
@@ -395,7 +394,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 229081452}
-  m_LocalRotation: {x: 0.0551944, y: 5.949589e-26, z: -3.2888536e-27, w: 0.9984757}
+  m_LocalRotation: {x: 0.0551944, y: 3.2236447e-26, z: -1.7819879e-27, w: 0.9984757}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5214,7 +5213,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!1 &404862428
 GameObject:
@@ -5421,7 +5420,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isRed: 0
-  coinSound: {fileID: 1590059995}
   player: {fileID: 1828384991}
 --- !u!23 &411124684
 MeshRenderer:
@@ -5551,7 +5549,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isRed: 0
-  coinSound: {fileID: 1590059995}
   player: {fileID: 1828384991}
 --- !u!23 &422197608
 MeshRenderer:
@@ -5681,7 +5678,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isRed: 0
-  coinSound: {fileID: 1590059995}
   player: {fileID: 1828384991}
 --- !u!23 &432502831
 MeshRenderer:
@@ -5771,8 +5767,102 @@ Transform:
   - {fileID: 2015623598}
   - {fileID: 785344519}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &630333498
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 630333500}
+  - component: {fileID: 630333499}
+  m_Layer: 0
+  m_Name: Directional Light
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!108 &630333499
+Light:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 630333498}
+  m_Enabled: 1
+  serializedVersion: 10
+  m_Type: 1
+  m_Shape: 0
+  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
+  m_Intensity: 1
+  m_Range: 10
+  m_SpotAngle: 30
+  m_InnerSpotAngle: 21.80208
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 2
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.2
+    m_CullingMatrixOverride:
+      e00: 1
+      e01: 0
+      e02: 0
+      e03: 0
+      e10: 0
+      e11: 1
+      e12: 0
+      e13: 0
+      e20: 0
+      e21: 0
+      e22: 1
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    m_UseCullingMatrixOverride: 0
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingLayerMask: 1
+  m_Lightmapping: 4
+  m_LightShadowCasterMode: 0
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
+--- !u!4 &630333500
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 630333498}
+  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
+  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &700080988
 GameObject:
   m_ObjectHideFlags: 0
@@ -5851,7 +5941,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isRed: 1
-  coinSound: {fileID: 0}
   player: {fileID: 1828384991}
 --- !u!23 &700080993
 MeshRenderer:
@@ -5903,100 +5992,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 700080988}
   m_Mesh: {fileID: -5216581434543980006, guid: 5d1a2822013fe479697ecc64079be039, type: 3}
---- !u!1 &705507993
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 705507995}
-  - component: {fileID: 705507994}
-  m_Layer: 0
-  m_Name: Directional Light
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!108 &705507994
-Light:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 705507993}
-  m_Enabled: 1
-  serializedVersion: 10
-  m_Type: 1
-  m_Shape: 0
-  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 1
-  m_Range: 10
-  m_SpotAngle: 30
-  m_InnerSpotAngle: 21.802082
-  m_CookieSize: 10
-  m_Shadows:
-    m_Type: 2
-    m_Resolution: -1
-    m_CustomResolution: -1
-    m_Strength: 1
-    m_Bias: 0.05
-    m_NormalBias: 0.4
-    m_NearPlane: 0.2
-    m_CullingMatrixOverride:
-      e00: 1
-      e01: 0
-      e02: 0
-      e03: 0
-      e10: 0
-      e11: 1
-      e12: 0
-      e13: 0
-      e20: 0
-      e21: 0
-      e22: 1
-      e23: 0
-      e30: 0
-      e31: 0
-      e32: 0
-      e33: 1
-    m_UseCullingMatrixOverride: 0
-  m_Cookie: {fileID: 0}
-  m_DrawHalo: 0
-  m_Flare: {fileID: 0}
-  m_RenderMode: 0
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_RenderingLayerMask: 1
-  m_Lightmapping: 1
-  m_LightShadowCasterMode: 0
-  m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 1
-  m_ColorTemperature: 6570
-  m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
-  m_UseBoundingSphereOverride: 0
-  m_UseViewFrustumForShadowCasterCull: 1
-  m_ShadowRadius: 0
-  m_ShadowAngle: 0
---- !u!4 &705507995
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 705507993}
-  m_LocalRotation: {x: 0.70090926, y: 0, z: 0, w: 0.71325046}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 89, y: 0, z: 0}
 --- !u!1 &745946063
 GameObject:
   m_ObjectHideFlags: 0
@@ -6075,7 +6070,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isRed: 1
-  coinSound: {fileID: 0}
   player: {fileID: 1828384991}
 --- !u!23 &745946069
 MeshRenderer:
@@ -6205,7 +6199,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isRed: 0
-  coinSound: {fileID: 1590059995}
   player: {fileID: 1828384991}
 --- !u!23 &785344523
 MeshRenderer:
@@ -6349,7 +6342,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &963194227
 Camera:
   m_ObjectHideFlags: 0
@@ -6400,15 +6393,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.07329912, y: 0.00000003458728, z: -0.0000000025420548, w: 0.99731004}
-  m_LocalPosition: {x: -100.5, y: -109.38, z: -255.4}
+  m_LocalRotation: {x: 0.07329912, y: -0.000000034587277, z: 0.0000000025420546, w: 0.99731004}
+  m_LocalPosition: {x: -144.81, y: -57.5, z: -154.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1594587012}
   - {fileID: 879842002}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &963194229
 MonoBehaviour:
@@ -6582,7 +6575,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isRed: 0
-  coinSound: {fileID: 1590059995}
   player: {fileID: 1828384991}
 --- !u!23 &985564341
 MeshRenderer:
@@ -6787,7 +6779,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1070098674}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -100.5, y: -109.38, z: -255.4}
+  m_LocalPosition: {x: -144.81, y: -57.5, z: -154.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6795,7 +6787,7 @@ Transform:
   - {fileID: 1683145172}
   - {fileID: 229081454}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1070098677
 MonoBehaviour:
@@ -6905,7 +6897,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isRed: 0
-  coinSound: {fileID: 1590059995}
   player: {fileID: 1828384991}
 --- !u!23 &1142049678
 MeshRenderer:
@@ -7162,7 +7153,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isRed: 1
-  coinSound: {fileID: 0}
   player: {fileID: 1828384991}
 --- !u!23 &1487959205
 MeshRenderer:
@@ -7243,7 +7233,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1590059994
 GameObject:
@@ -7483,7 +7473,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1683145170
 GameObject:
@@ -7554,7 +7544,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1683145170}
-  m_LocalRotation: {x: 0.07329912, y: 0.000000017688222, z: -0.0000000013000282, w: 0.99731004}
+  m_LocalRotation: {x: 0.07329912, y: -0.000000017688219, z: 0.000000001300028, w: 0.99731004}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -7610,7 +7600,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1706194370
 GameObject:
@@ -7681,7 +7671,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1706194370}
-  m_LocalRotation: {x: 0.09142755, y: 0.0000000042835793, z: -3.932843e-10, w: 0.99581176}
+  m_LocalRotation: {x: 0.09142755, y: -0.0000000042835793, z: 3.932843e-10, w: 0.99581176}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -7718,14 +7708,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1828384991}
   m_LocalRotation: {x: -0, y: 0.54482555, z: -0, w: 0.83854944}
-  m_LocalPosition: {x: -100.5, y: -114.38, z: -228.4}
+  m_LocalPosition: {x: -144.81, y: -62.5, z: -127.7}
   m_LocalScale: {x: 1.24, y: 1.8599999, z: 1.24}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1050215125}
   - {fileID: 1590059996}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 66.026, z: 0}
 --- !u!114 &1828384994
 MonoBehaviour:
@@ -7749,18 +7739,20 @@ MonoBehaviour:
   moveSpeed: 30
   jumpForce: 20
   jumpCooldown: 1
-  airMultiplier: 0.5
+  airMultiplier: 0.3
   readyToJump: 1
   readyToLongJump: 0
   longJumping: 0
   longJumpForceMultiplier: 0.6
-  longJumpSpeedMultiplier: 2
+  longJumpSpeedMultiplier: 1.5
+  ticksAfterJump: 0
   coins: 0
   redCoins: 0
   playerHeight: 4
   ground:
     serializedVersion: 2
     m_Bits: 64
+  grounded: 0
 --- !u!54 &1828384995
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -7882,7 +7874,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isRed: 1
-  coinSound: {fileID: 0}
   player: {fileID: 1828384991}
 --- !u!23 &1851330013
 MeshRenderer:
@@ -7970,7 +7961,7 @@ Transform:
   - {fileID: 2021355686}
   - {fileID: 1487959201}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1928596694
 GameObject:
@@ -8050,7 +8041,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isRed: 1
-  coinSound: {fileID: 0}
   player: {fileID: 1828384991}
 --- !u!23 &1928596699
 MeshRenderer:
@@ -8180,7 +8170,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isRed: 0
-  coinSound: {fileID: 1590059995}
   player: {fileID: 1828384991}
 --- !u!23 &1942552629
 MeshRenderer:
@@ -8437,7 +8426,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isRed: 0
-  coinSound: {fileID: 1590059995}
   player: {fileID: 1828384991}
 --- !u!23 &2015623602
 MeshRenderer:
@@ -8567,7 +8555,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isRed: 1
-  coinSound: {fileID: 0}
   player: {fileID: 1828384991}
 --- !u!23 &2021355690
 MeshRenderer:
@@ -8682,8 +8669,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isRed: 0
-  coinSound: {fileID: 0}
-  player: {fileID: 1828384991}
+  player: {fileID: 0}
 --- !u!23 &2117472303
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -8747,7 +8733,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &543450652520361155
 Transform:
@@ -8901,7 +8887,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isRed: 0
-  coinSound: {fileID: 3469287838651065195}
   player: {fileID: 1828384991}
 --- !u!82 &3469287838651065195
 AudioSource:
@@ -9108,7 +9093,7 @@ Transform:
   m_Children:
   - {fileID: 2460520849876267202}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6370687720612528033
 GameObject:

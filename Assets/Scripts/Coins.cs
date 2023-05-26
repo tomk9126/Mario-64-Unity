@@ -6,7 +6,7 @@ using UnityEngine;
 public class Coins : MonoBehaviour
 {
     public bool isRed;
-    public AudioSource coinSound;
+    //public AudioSource coinSound;
     bool collected = false;
 
     MarioMovement marioMovement;
@@ -14,7 +14,7 @@ public class Coins : MonoBehaviour
     
     void Start() {
         marioMovement = player.GetComponent<MarioMovement>();
-        coinSound = GetComponent<AudioSource>();
+        //coinSound = GetComponent<AudioSource>();
     }
 
     void OnTriggerEnter(Collider other)
@@ -28,7 +28,7 @@ public class Coins : MonoBehaviour
                 Debug.Log("Coin");
                 marioMovement.coins = marioMovement.coins + 1;
                 if (isRed)  { marioMovement.coins = marioMovement.coins + 1; } //extra coin counted if red
-                coinSound.Play();
+                //coinSound.Play();
                 Destroy(this.gameObject);
                 
             }

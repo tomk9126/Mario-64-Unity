@@ -32,6 +32,7 @@ public class MarioMovement : MonoBehaviour
     public bool longJumping;
     public float longJumpForceMultiplier;
     public float longJumpSpeedMultiplier;
+    public float ticksAfterJump;
 
     [Header("Score")]
     public int coins;
@@ -42,7 +43,7 @@ public class MarioMovement : MonoBehaviour
     [Header("Ground Check")]
     public float playerHeight;
     public LayerMask ground;
-    bool grounded;
+    public bool grounded;
 
     private void Start()
     {
@@ -69,6 +70,8 @@ public class MarioMovement : MonoBehaviour
         Vector3 inputDir = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
 
+        ticksAfterJump += 1;
+
         //when to long jump
         if (Input.GetButton("Jump") && Input.GetButton("Fire3") && readyToLongJump && grounded)
         {   
@@ -82,13 +85,14 @@ public class MarioMovement : MonoBehaviour
         }
 
         //when to jump
-        else if (Input.GetButton("Jump") && readyToJump && grounded)
+        else if (Input.GetButton("Jump") && readyToJump && grounded )
         {
             Debug.Log("Jump");
             readyToJump = false;
             readyToLongJump = false;
             Jump(1f);
             Invoke(nameof(ResetJump), jumpCooldown);
+            ticksAfterJump = 0;
             
         }
         
@@ -100,10 +104,11 @@ public class MarioMovement : MonoBehaviour
         if (grounded)
         {
             rb.AddForce(moveDirection * moveMagnitude * moveSpeed, ForceMode.Acceleration);
+
         }
         else if (!grounded)
         {
-            rb.AddForce(moveDirection * moveMagnitude * moveSpeed * airMultiplier * Time.fixedDeltaTime, ForceMode.VelocityChange);
+            rb.AddForce(moveDirection * moveMagnitude * moveSpeed * airMultiplier * Time.fixedDeltaTime, ForceMode.Acceleration);
         }
 
         if (inputDir != Vector3.zero)
@@ -114,6 +119,7 @@ public class MarioMovement : MonoBehaviour
         //ground check
         if (grounded)
         {
+            
             rb.drag = groundDrag;
         }
         else
@@ -129,6 +135,7 @@ public class MarioMovement : MonoBehaviour
         if (!grounded && longJumping)
         {
             maxSpeed *= longJumpSpeedMultiplier;
+            rb.AddForce(moveDirection * moveMagnitude * moveSpeed, ForceMode.Acceleration);
         }
 
         Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
@@ -144,10 +151,13 @@ public class MarioMovement : MonoBehaviour
 
     private void Jump(float jumpMultiplier)
     {
+        
         //reset y velocity
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
         
         rb.AddForce(transform.up * jumpForce * jumpMultiplier, ForceMode.Impulse);
+
+        
     }
 
     private void ResetJump() 
