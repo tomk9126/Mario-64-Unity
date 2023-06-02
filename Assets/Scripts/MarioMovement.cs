@@ -108,7 +108,7 @@ public class MarioMovement : MonoBehaviour
         }
         else if (!grounded)
         {
-            rb.AddForce(moveDirection * moveMagnitude * moveSpeed * airMultiplier * Time.fixedDeltaTime, ForceMode.Acceleration);
+            rb.AddForce(moveDirection * moveMagnitude * moveSpeed * airMultiplier, ForceMode.Acceleration);
         }
 
         if (inputDir != Vector3.zero)
