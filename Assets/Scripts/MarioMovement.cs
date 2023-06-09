@@ -32,7 +32,7 @@ public class MarioMovement : MonoBehaviour
     public bool longJumping;
     public float longJumpForceMultiplier;
     public float longJumpSpeedMultiplier;
-    public float ticksAfterJump;
+    public int ticksAfterJump;
 
     [Header("Score")]
     public int coins;
@@ -69,8 +69,10 @@ public class MarioMovement : MonoBehaviour
         float verticalInput = Input.GetAxis("Vertical");
         Vector3 inputDir = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
-
-        ticksAfterJump += 1;
+        if (ticksAfterJump < 99) {
+            ticksAfterJump += 1;
+        }
+        
 
         //when to long jump
         if (Input.GetButton("Jump") && Input.GetButton("Fire3") && readyToLongJump && grounded)
