@@ -43,7 +43,7 @@ public class MarioMovement : MonoBehaviour
     [Header("Ground Check")]
     public float playerHeight;
     public LayerMask ground;
-    public bool grounded;
+    private bool grounded;
 
     private void Start()
     {
