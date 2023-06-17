@@ -1,0 +1,19 @@
+BEGIN Coins:
+    FUNCTION Start():
+        marioMovement = player.GetComponent<MarioMovement>()
+
+    FUNCTION OnTriggerEnter(other):
+        IF other.tag is equal to "Player":
+            IF collected is false:
+                collected = true
+                marioMovement.coins = marioMovement.coins + 1
+                IF isRed is true:
+                    marioMovement.coins = marioMovement.coins + 1
+		ENDIF
+                Destroy this game object
+	    ENDIF
+	ENDIF
+    FUNCTION Update():
+        newRotation = Vector3(0, 1, 0)
+        transform.eulerAngles += newRotation
+END Coins

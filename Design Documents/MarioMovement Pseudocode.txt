@@ -1,0 +1,102 @@
+BEGIN MarioMovement
+    FUNCTION Start()
+        SET rb.freezeRotation to true
+
+    FUNCTION Update()
+        CALL HandleInput()
+        CALL GroundCheck()
+        CALL RotatePlayerOrientation()
+        CALL MovePlayer()
+        CALL SpeedControl()
+
+    FUNCTION HandleInput()
+        SET horizontalInput to Input.GetAxis("Horizontal")
+        SET verticalInput to Input.GetAxis("Vertical")
+        SET moveMagnitude to Mathf.Clamp01(new Vector2(horizontalInput, verticalInput).magnitude)
+
+    FUNCTION GroundCheck()
+        SET grounded to Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, ground)
+
+    FUNCTION RotatePlayerOrientation()
+        SET viewDir to player.position transform.position
+        IF viewDir.sqrMagnitude > 0.001f, THEN
+            SET targetRotation to Quaternion.LookRotation(viewDir, Vector3.up)
+            SET orientation.rotation to Quaternion.Slerp(orientation.rotation, targetRotation, rotationSpeed * Time.deltaTime)
+        ENDIF
+
+    FUNCTION MovePlayer()
+        SET inputDir to orientation.forward * verticalInput + orientation.right * horizontalInput
+        IF ticksAfterJump < 99, THEN
+            Increment ticksAfterJump by 1
+        ENDIF
+
+        IF Input.GetButton("Jump") && Input.GetButton("Fire3") && readyToLongJump && grounded, THEN
+            CALL PerformLongJump(inputDir)
+        ELSE IF Input.GetButton("Jump") && readyToJump && grounded, THEN
+            CALL PerformJump()
+        ENDIF
+
+        CALL MoveDirection(inputDir)
+
+        IF Input.GetButtonDown("Jump") && readyToJump && grounded, THEN
+            CALL PerformJump()
+        ELSE IF Input.GetButtonDown("Jump") && Input.GetButton("Fire3") && readyToLongJump && grounded, THEN
+            CALL PerformLongJump(inputDir)
+        ENDIF
+
+    FUNCTION MoveDirection(Vector3 inputDir)
+        SET moveDirection to inputDir.normalized
+
+        IF grounded, THEN
+            Add moveDirection * moveMagnitude * moveSpeed to rb.velocity with ForceMode.Acceleration
+        ELSE,
+            Add moveDirection * moveMagnitude * moveSpeed * airMultiplier to rb.velocity with ForceMode.Acceleration
+        ENDIF
+
+        IF inputDir is not Vector3.zero, THEN
+            SET playerObject.forward to Vector3.Slerp(playerObject.forward, inputDir.normalized, Time.deltaTime * rotationSpeed)
+        ENDIF
+
+        SET rb.drag to groundDrag IF grounded, ELSE SET it to 0
+
+    FUNCTION PerformLongJump(Vector3 inputDir)
+        Print "Long Jump"
+        SET longJumping to true
+        SET readyToJump to false
+        SET readyToLongJump to false
+        CALL Jump(longJumpForceMultiplier)
+        Invoke ReSETJump() after jumpCooldown seconds
+        Add inputDir * moveSpeed * longJumpSpeedMultiplier to rb.velocity with ForceMode.Acceleration
+
+    FUNCTION PerformJump()
+        Print "Jump"
+        SET readyToJump to false
+        SET readyToLongJump to false
+        CALL Jump(1f)
+        Invoke ReSETJump() after jumpCooldown seconds
+        SET ticksAfterJump to 0
+
+    FUNCTION Jump(float jumpMultiplier)
+        SET rb.velocity to a new Vector3(rb.velocity.x, 0f, rb.velocity.z)
+        Add transform.up * jumpForce * jumpMultiplier to rb.velocity with ForceMode.Impulse
+
+    FUNCTION ReSETJump()
+        SET readyToJump to true
+        SET readyToLongJump to true
+        SET longJumping to false
+
+    FUNCTION SpeedControl()
+        SET maxSpeed to moveSpeed
+
+        IF not grounded and longJumping, THEN
+            Multiply maxSpeed by longJumpSpeedMultiplier
+            Add rb.velocity.normalized * moveMagnitude * moveSpeed to rb.velocity with ForceMode.Acceleration
+        ENDIF
+
+        SET flatVel to a new Vector3(rb.velocity.x, 0f, rb.velocity.z)
+
+        IF flatVel.magnitude > maxSpeed, THEN
+            SET limitedVel to flatVel.normalized * maxSpeed
+            SET rb.velocity to a new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z)
+        ENDIF
+END MarioMovement
