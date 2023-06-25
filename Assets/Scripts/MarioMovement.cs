@@ -49,7 +49,6 @@ public class MarioMovement : MonoBehaviour
     {
         HandleInput();
         GroundCheck();
-        RotatePlayerOrientation();
         MovePlayer();
         SpeedControl();
     }
@@ -67,18 +66,15 @@ public class MarioMovement : MonoBehaviour
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, ground);
     }
 
-    private void RotatePlayerOrientation()
+    private void MovePlayer()
     {
+        //rotate player orientation
         Vector3 viewDir = player.position - transform.position;
         if (viewDir.sqrMagnitude > 0.001f)
         {
             Quaternion targetRotation = Quaternion.LookRotation(viewDir, Vector3.up);
             orientation.rotation = Quaternion.Slerp(orientation.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         }
-    }
-
-    private void MovePlayer()
-    {
         
         Vector3 inputDir = orientation.forward * verticalInput + orientation.right * horizontalInput;
         if (ticksAfterJump < 99)
