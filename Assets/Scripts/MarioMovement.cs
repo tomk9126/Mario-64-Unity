@@ -42,6 +42,8 @@ public class MarioMovement : MonoBehaviour
 
     private void Start()
     {
+        //the rigidbody component is not supposed to rotate as the player handles rotation a different way.
+        //since the player's body is a capsule collider, setting this to 'false' can result in the player falling over.
         rb.freezeRotation = true;
     }
 
@@ -56,8 +58,11 @@ public class MarioMovement : MonoBehaviour
 
     private void HandleInput()
     {
+        //controller - Horizontal=Left/Right on Left analog stick, Vertical=Up/Down on left analog stick.
         horizontalInput = Input.GetAxis("Horizontal");
         verticalInput = Input.GetAxis("Vertical");
+
+        //the further the stick is pushed the faster the player accelerates
         moveMagnitude = Mathf.Clamp01(new Vector2(horizontalInput, verticalInput).magnitude);
     }
 
@@ -119,6 +124,7 @@ public class MarioMovement : MonoBehaviour
             rb.AddForce(moveDirection * moveMagnitude * moveSpeed * airMultiplier, ForceMode.Acceleration);
         }
 
+        //only move the player if the player is inputting something. If their input returns a 0, do not move.
         if (inputDir != Vector3.zero)
         {
             playerObject.forward = Vector3.Slerp(playerObject.forward, inputDir.normalized, Time.deltaTime * rotationSpeed);
@@ -135,6 +141,7 @@ public class MarioMovement : MonoBehaviour
         readyToLongJump = false;
         Jump(longJumpForceMultiplier);
         Invoke(nameof(ResetJump), jumpCooldown);
+        //push the player forward
         rb.AddForce(inputDir * moveSpeed * longJumpSpeedMultiplier, ForceMode.Acceleration);
     }
 
@@ -150,6 +157,7 @@ public class MarioMovement : MonoBehaviour
 
     private void Jump(float jumpMultiplier)
     {
+        //reset y velocity
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
         rb.AddForce(transform.up * jumpForce * jumpMultiplier, ForceMode.Impulse);
     }

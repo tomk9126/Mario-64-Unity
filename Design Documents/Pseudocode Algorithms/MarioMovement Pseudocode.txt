@@ -65,7 +65,7 @@ BEGIN MarioMovement
         SET readyToJump to false
         SET readyToLongJump to false
         CALL Jump(longJumpForceMultiplier)
-        Invoke ReSETJump() after jumpCooldown seconds
+        Invoke ResetJump() after jumpCooldown seconds
         Add inputDir * moveSpeed * longJumpSpeedMultiplier to rb.velocity with ForceMode.Acceleration
 
     FUNCTION PerformJump()
@@ -73,14 +73,14 @@ BEGIN MarioMovement
         SET readyToJump to false
         SET readyToLongJump to false
         CALL Jump(1f)
-        Invoke ReSETJump() after jumpCooldown seconds
+        Invoke ResetJump() after jumpCooldown seconds
         SET ticksAfterJump to 0
 
     FUNCTION Jump(float jumpMultiplier)
         SET rb.velocity to a new Vector3(rb.velocity.x, 0f, rb.velocity.z)
         Add transform.up * jumpForce * jumpMultiplier to rb.velocity with ForceMode.Impulse
 
-    FUNCTION ReSETJump()
+    FUNCTION ResetJump()
         SET readyToJump to true
         SET readyToLongJump to true
         SET longJumping to false
