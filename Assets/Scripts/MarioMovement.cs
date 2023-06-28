@@ -14,8 +14,8 @@ public class MarioMovement : MonoBehaviour
     public float groundDrag;
 
     [Header("Input")]
-    private float horizontalInput;
-    private float verticalInput;
+    public float horizontalInput;
+    public float verticalInput;
     private float moveMagnitude;
 
     [Header("Movement")]
