@@ -88,7 +88,7 @@ public class MarioMovement : MonoBehaviour
         }
 
         //check jump inputs
-        if (Input.GetButton("Jump") && Input.GetButton("Fire3") && readyToLongJump && readyToLongJump && grounded && !longJumping)
+        if (Input.GetButton("Jump") && Input.GetButton("Fire3") && readyToLongJump && grounded)
         {
             PerformLongJump(inputDir);
         }
